@@ -19,6 +19,7 @@ import butterknife.OnClick;
 
 import com.dagger2.zeroscreen.R;
 import com.dagger2.zeroscreen.api.bean.NewsInfo;
+import com.dagger2.zeroscreen.dagger.component.ComponentManager;
 import com.dagger2.zeroscreen.dagger.component.DaggerNewsComponent;
 import com.dagger2.zeroscreen.dagger.module.NewsModule;
 import com.dagger2.zeroscreen.mvp.base.BaseLayout;
@@ -64,7 +65,9 @@ public class NewsLayout extends BaseLayout implements INewsView {
 
     @Override
     public void inject() {
-        DaggerNewsComponent.builder().appComponent(mAppComponent).newsModule(new NewsModule(this)).build().inject(this);
+        DaggerNewsComponent.builder()
+                .appComponent(ComponentManager.getsInstance(getContext()).getAppComponent())
+                .newsModule(new NewsModule(this)).build().inject(this);
     }
 
     @Override

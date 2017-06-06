@@ -1,5 +1,6 @@
 package com.dagger2.zeroscreen.dagger.module;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -14,13 +15,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class RetrofitModule {
-    String baseUrl = "http://c.3g.163.com/";//"http://v5.pc.duomi.com/";
+    String newsUrl = "http://c.3g.163.com/";//"http://v5.pc.duomi.com/";
+    String weatherUrl = "http://c.3g.163.com/";
 
     @Singleton
     @Provides
-    Retrofit provideRetrofit(Retrofit.Builder builder) {
+    @Named("news")
+    Retrofit provideNewsRetrofit(Retrofit.Builder builder) {
         return builder
-                .baseUrl(baseUrl)
+                .baseUrl(newsUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+    }
+
+    @Singleton
+    @Provides
+    @Named("weather")
+    Retrofit provideWeatherRetrofit(Retrofit.Builder builder) {
+        return builder
+                .baseUrl(weatherUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

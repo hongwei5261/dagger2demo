@@ -6,33 +6,51 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.dagger2.zeroscreen.api.bean.NewsInfo;
+import com.dagger2.zeroscreen.dagger.component.AppComponent;
 import com.dagger2.zeroscreen.dagger.component.ComponentManager;
 import com.dagger2.zeroscreen.api.INewsApi;
+import com.dagger2.zeroscreen.mvp.base.IModel;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 /**
  * Created by hongwei on 2017/5/5.
  */
 
-public class ClientModel implements IModel.IClientModel {
+public class NetModel extends INetModel {
 
     Context mContext;
 
     @Inject
-    public ClientModel(Context context) {
+    @Named("news")
+    Retrofit newsRetrofit;
+
+    @Inject
+    @Named("weather")
+    Retrofit weatherRetrofit;
+
+    @Inject
+    public NetModel(Context context) {
+        super(context);
         mContext = context;
+    }
+
+    @Override
+    public void inject() {
+        mAppComponent.inject(this);
     }
 
     @Override
     public Observable<List<NewsInfo>> getNewsList(String newsId, int page) {
         String type = "list";
-        return ComponentManager.getsInstance(mContext).getAppComponent().getRetrofit().create(INewsApi.class)
+        return newsRetrofit.create(INewsApi.class)
                 .getNewsList(type, newsId, page * 20)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

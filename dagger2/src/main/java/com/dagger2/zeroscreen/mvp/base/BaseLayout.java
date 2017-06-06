@@ -16,7 +16,6 @@ import com.dagger2.zeroscreen.dagger.component.ComponentManager;
 
 public abstract class BaseLayout extends LinearLayout {
     Unbinder mUnbinder;
-    public AppComponent mAppComponent;
 
     public BaseLayout(Context context) {
         super(context);
@@ -42,8 +41,7 @@ public abstract class BaseLayout extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mUnbinder = ButterKnife.bind(this);
-        mAppComponent = ComponentManager.getsInstance(getContext()).getAppComponent();
-//        ComponentManager.getsInstance(getContext()).getAppComponent().inject(this);
+        ComponentManager.getsInstance(getContext()).getAppComponent();
         inject();
     }
 

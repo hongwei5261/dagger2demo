@@ -3,10 +3,12 @@ package com.dagger2.zeroscreen.mvp.main;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.dagger2.zeroscreen.api.bean.NewsInfo;
 import com.dagger2.zeroscreen.mvp.base.IPresenter;
-import com.dagger2.zeroscreen.mvp.model.ClientModel;
+import com.dagger2.zeroscreen.mvp.model.NetModel;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -18,7 +20,7 @@ import io.reactivex.disposables.Disposable;
 public class NewsPresenter extends IPresenter<INewsView> {
 
     @Inject
-    ClientModel mClientModel;
+    NetModel mNetModel;
 
     @Inject
     public NewsPresenter(INewsView view) {
@@ -27,7 +29,7 @@ public class NewsPresenter extends IPresenter<INewsView> {
 
     @Override
     public void getData() {
-        Observable<List<NewsInfo>> observable = mClientModel.getNewsList("T1348648756099", 1);
+        Observable<List<NewsInfo>> observable = mNetModel.getNewsList("T1348648756099", 1);
         observable.subscribe(new Observer<List<NewsInfo>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
