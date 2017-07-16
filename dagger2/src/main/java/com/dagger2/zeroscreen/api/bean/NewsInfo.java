@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * 新闻信息类
+ *
+ * @author hongwei
+ */
 public final class NewsInfo implements Parcelable {
 
     /**

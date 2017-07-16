@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.dagger2.zeroscreen.api.bean.NewsInfo;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
+ * 新闻接口API
  * Created by hongwei on 2017/5/5.
  */
 

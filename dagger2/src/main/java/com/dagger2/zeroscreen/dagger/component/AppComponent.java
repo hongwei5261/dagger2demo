@@ -35,6 +35,5 @@ public interface AppComponent {
 
     Context getContext();
 
-//    public void inject(BaseLayout baseLayout);
     public void inject(NetModel netModel);
 }
